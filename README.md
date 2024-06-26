@@ -1,7 +1,7 @@
 # 🌍 Atividades do Curso de JavaScript
 
 ## 🧑‍💻 Tecnologias Utilizadas:
-  - Visual Studio Code
+  - VS Code
 
 ## 💻 Sobre o Curso
   - Este repositório contém os materiais e atividades desenvolvidas durante o curso de JavaScript, onde foram abordados os seguintes temas:

@@ -30,8 +30,8 @@ if(valorDivida > 0){
 
 //SAÍDA DE DADOS
         console.log("\nValor da Dívida: R$ "+valorDivida);
-        console.log("Dias atrasados: "+diasVencidos)
-        console.log("Taxa de Juros: "+taxaJuros+"%");
+        console.log("Dias atrasados: "+diasVencidos+" dias")
+        console.log("Taxa de Juros: "+taxaJuros+" %");
         console.log("Valor dos juros: R$ "+valorJuros);
         console.log("Valor total com juros: R$ "+totalDivida+"\n");
     }
@@ -40,5 +40,5 @@ if(valorDivida > 0){
     }
 }
 else{
-  console.log("Você não possui nenhum débito\n")
+  console.log("Você não possui nenhum débito.\n")
 }

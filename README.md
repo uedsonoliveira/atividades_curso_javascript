@@ -27,6 +27,8 @@
 ## ✍🏼 Durante o curso, foram realizadas várias atividades práticas para aplicar os conceitos aprendidos. 
   - Algumas das atividades incluem:
     - Obs: De acordo que eu for terminando eu irei postar aqui abaixo todas as atividades práticas.
+    - 01 - Sistema de Aplicação de Juros
+    - 02 - Sistema de Conversão de Milhas para Kilômetros
 
 ### 🧰 Estrutura de Arquivos:
   - Os projetos terão a seguinte estrutura de arquivos:

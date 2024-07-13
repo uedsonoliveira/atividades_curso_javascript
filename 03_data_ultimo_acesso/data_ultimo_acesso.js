@@ -1,5 +1,5 @@
 //Armazena a data de último acesso do usuário
-const dataUltimoAcesso = new Date ('2024/07/01 16:00:00');
+const dataUltimoAcesso = new Date ('2024/07/12 16:00:00');
 //Armazena a data atual do sistema
 const dataAtual = new Date ();
 
@@ -39,19 +39,19 @@ const milissegundosAno = milissegundosDia * 365.25;//dias do ano considerando um
 //Utilizei Math.floor() para arredondar os valores de anos, meses, semanas, dias e horas para números inteiros.
 if(diferencaTempo >= milissegundosAno){
   const anos = diferencaTempo / milissegundosAno;
-  msg += "Você está ausente há " +Math.floor(anos)+ " ANOS sem acessar o sistema\n";
+  msg += "Você está ausente há " +Math.floor(anos)+ " ANO(s) sem acessar o sistema\n";
 }
 else if(diferencaTempo >= milissegundosMes){
   const meses = diferencaTempo / milissegundosMes;
-  msg += "Você está ausente há " +Math.floor(meses)+ " MESES sem acessar o sistema\n"
+  msg += "Você está ausente há " +Math.floor(meses)+ " MESE(s) sem acessar o sistema\n"
 }
 else if(diferencaTempo >= milissegundosSemana){
   const semanas = diferencaTempo / milissegundosSemana;
-  msg += "Você está ausente há " +Math.floor(semanas)+ " SEMANAS sem acessar o sistema.\n";
+  msg += "Você está ausente há " +Math.floor(semanas)+ " SEMANA(s) sem acessar o sistema.\n";
 }
 else if(diferencaTempo >= milissegundosDia){
   const dias = diferencaTempo / milissegundosDia;
-  msg += "Você está ausente há " +Math.floor(dias)+ " DIAS sem acessar o sistema.\n"
+  msg += "Você está ausente há " +Math.floor(dias)+ " DIA(s) sem acessar o sistema.\n"
 }
 else if(diferencaTempo >= milissegundosHora){
   const horas = diferencaTempo / milissegundosHora;

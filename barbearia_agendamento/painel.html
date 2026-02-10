@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Painel Administrativo</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="painel.css">
+</head>
+
+<body>
+  <div class="admin-wrapper">
+    <nav class="side-nav">
+      <div class="nav-header">
+        <div class="logo-container">
+          <i class="fas fa-cut"></i>
+        </div>
+        <span class="logo-text">Admin Agenda</span>
+        <button class="nav-toggle-btn">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      <ul class="nav-links">
+        <li><a href="painel.html" class="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+        <li><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i><span>Agendamentos</span></a></li>
+        <li><a href="clientes.html"><i class="fas fa-id-card"></i><span>Clientes</span></a></li>
+        <li><a href="bloqueios.html"><i class="fas fa-lock"></i><span>Bloqueios</span></a></li>
+        <li><a href="equipe.html"><i class="fas fa-users"></i><span>Equipe</span></a></li>
+        <li><a href="servicos.html"><i class="fas fa-cogs"></i><span>Serviços</span></a></li>
+        <li><a href="configuracao.html"><i class="fas fa-clock"></i><span>Horários</span></a></li>
+        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <h1>Dashboard</h1>
+        <div class="header-actions">
+          <button id="theme-toggle" class="header-btn" title="Mudar Tema" aria-label="Mudar Tema"><i class="fas fa-moon"></i> 
+          </button>
+        </div>
+      </header>
+
+      <div class="dashboard-grid">
+        <div class="metric-card">
+          <div class="card-icon" style="background-color: #eaf5ff;">
+            <i class="fas fa-calendar-day" style="color: #3b82f6;"></i>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Agendamentos Hoje</span>
+            <span class="card-value" id="metric-agendamentos-hoje">...</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="card-icon" style="background-color: #e6f7eb;">
+            <i class="fas fa-users" style="color: #10b981;"></i>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Profissionais Ativos</span>
+            <span class="card-value" id="metric-profissionais-ativos">...</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="card-icon" style="background-color: #fffbeb;">
+            <i class="fas fa-dollar-sign" style="color: #f59e0b;"></i>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Faturamento (Hoje)</span>
+            <span class="card-value" id="metric-faturamento-hoje">R$ 0,00</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="card-icon" style="background-color: #f3e8ff;">
+            <i class="fas fa-calendar-week" style="color: #9333ea;"></i>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Faturamento (Semana)</span>
+            <span class="card-value" id="metric-faturamento-semana">...</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="card-icon" style="background-color: #ffe4e6;">
+            <i class="fas fa-chart-line" style="color: #e11d48;"></i>
+          </div>
+          <div class="card-info">
+            <span class="card-title">Faturamento (Mês)</span>
+            <span class="card-value" id="metric-faturamento-mes">...</span>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3>Agendamentos por Profissional (Semana)</h3>
+          <canvas id="agendamentosPorProfissionalChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+          <h3>Serviços Mais Populares (Mês)</h3>
+          <canvas id="servicosPopularesChart"></canvas>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="painel-dashboard.js"></script>
+</body>
+
+</html>

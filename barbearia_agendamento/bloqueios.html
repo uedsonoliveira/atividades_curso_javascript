@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Bloqueios - Painel Administrativo</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="painel.css">
+</head>
+
+<body>
+  <div id="notification-container"></div>
+  <div class="admin-wrapper">
+    <nav class="side-nav">
+      <div class="nav-header">
+        <div class="logo-container"><i class="fas fa-cut"></i></div>
+        <span class="logo-text">Admin Agenda</span>
+        <button class="nav-toggle-btn"><i class="fas fa-chevron-left"></i></button>
+      </div>
+      <ul class="nav-links">
+        <li><a href="painel.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+        </li>
+        <li><a href="agendamentos.html"><i
+              class="fas fa-calendar-alt"></i><span>Agendamentos</span></a></li>
+        <li><a href="clientes.html"><i class="fas fa-id-card"></i><span>Clientes</span></a></li>
+        <li><a href="bloqueios.html" class="active"><i class="fas fa-lock"></i><span>Bloqueios</span></a></li>
+        <li><a href="equipe.html"><i class="fas fa-users"></i><span>Equipe</span></a></li>
+        <li><a href="servicos.html"><i class="fas fa-cogs"></i><span>Serviços</span></a></li>
+        <li><a href="configuracao.html"><i class="fas fa-clock"></i><span>Horários</span></a></li>
+        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <h1>Gerenciar Bloqueios</h1>
+        <div class="header-actions">
+          <button id="theme-toggle" class="header-btn" title="Mudar Tema" aria-label="Mudar Tema"><i class="fas fa-moon"></i> 
+          </button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="form-container">
+          <h3>Adicionar Novo Bloqueio</h3>
+          <form id="bloqueio-form" class="panel-form">
+            <div class="form-row">
+              <label for="bloqueio-profissional">Para qual profissional?</label>
+              <select id="bloqueio-profissional" required>
+                <option value="">Carregando profissionais...</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="bloqueio-descricao">Descrição (Motivo)</label>
+              <input type="text" id="bloqueio-descricao" placeholder="Ex: Férias, Almoço" required>
+            </div>
+
+            <div class="form-row">
+              <label class="checkbox-label" style="background: #eef2f7; padding: 10px; border-radius: 5px;">
+                <input type="checkbox" id="bloqueio-recorrente"> 📅 <strong>Repetir por um período (Vários
+                  dias)</strong>
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label for="bloqueio-data-inicio">Data (ou Data de Início)</label>
+              <input type="date" id="bloqueio-data-inicio" required>
+            </div>
+
+            <div class="form-row" id="div-data-fim" style="display:none;">
+              <label for="bloqueio-data-fim" style="color:var(--primary-color); font-weight:bold;">Até quando? (Data
+                Final)</label>
+              <input type="date" id="bloqueio-data-fim">
+            </div>
+
+            <div class="form-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="bloqueio-dia-inteiro"> Dia Inteiro
+              </label>
+            </div>
+
+            <div id="periodo-bloqueio" class="form-row-group">
+              <div class="form-row">
+                <label for="bloqueio-hora-inicio">Hora Início</label>
+                <input type="time" id="bloqueio-hora-inicio">
+              </div>
+              <div class="form-row">
+                <label for="bloqueio-hora-fim">Hora Fim</label>
+                <input type="time" id="bloqueio-hora-fim">
+              </div>
+            </div>
+
+            <button type="submit">Adicionar Bloqueio</button>
+          </form>
+        </div>
+
+        <div class="table-container">
+          <h3>Bloqueios Ativos</h3>
+          <table id="bloqueios-table">
+            <thead>
+              <tr>
+                <th>Profissional</th>
+                <th>Data</th>
+                <th>Período</th>
+                <th>Descrição</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="bloqueios-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+  <script src="bloqueios.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Serviços - Painel Administrativo</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="painel.css">
+</head>
+
+<body>
+  <div class="admin-wrapper">
+    <nav class="side-nav">
+      <div class="nav-header">
+        <div class="logo-container"><i class="fas fa-cut"></i></div>
+        <span class="logo-text">Admin Agenda</span>
+        <button class="nav-toggle-btn"><i class="fas fa-chevron-left"></i></button>
+      </div>
+      <ul class="nav-links">
+        <li><a href="painel.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+        </li>
+        <li><a href="agendamentos.html"><i
+              class="fas fa-calendar-alt"></i><span>Agendamentos</span></a></li>
+        <li><a href="clientes.html"><i class="fas fa-id-card"></i><span>Clientes</span></a></li>
+        <li><a href="bloqueios.html"><i class="fas fa-lock"></i><span>Bloqueios</span></a></li>
+        <li><a href="equipe.html"><i class="fas fa-users"></i><span>Equipe</span></a></li>
+        <li><a href="servicos.html" class="active"><i class="fas fa-cogs"></i><span>Serviços</span></a></li>
+        <li><a href="configuracao.html"><i class="fas fa-clock"></i><span>Horários</span></a></li>
+        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <h1>Gerenciar Serviços</h1>
+        <div class="header-actions">
+          <button id="theme-toggle" class="header-btn" title="Mudar Tema" aria-label="Mudar Tema"><i class="fas fa-moon"></i> 
+          </button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="form-container">
+          <h3>Adicionar Novo Serviço</h3>
+          <form id="servico-form" class="panel-form">
+            <div class="form-row">
+              <label for="servico-nome">Nome do Serviço</label>
+              <input type="text" id="servico-nome" required>
+            </div>
+            <div class="form-row">
+              <label for="servico-duracao">Duração (em minutos)</label>
+              <input type="number" id="servico-duracao" required>
+            </div>
+            <div class="form-row">
+              <label for="servico-preco">Preço (R$)</label>
+              <input type="number" id="servico-preco" step="0.01" min="0" placeholder="Ex: 50.00" required>
+            </div>
+            <button type="submit">Adicionar Serviço</button>
+          </form>
+        </div>
+
+        <div class="table-container">
+          <h3>Serviços Cadastrados</h3>
+          <table id="servicos-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Duração</th>
+                <th>Preço</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="servicos-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="servicos.js"></script>
+</body>
+
+</html>

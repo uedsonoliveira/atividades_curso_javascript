@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Agendamento Profissional</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="main-header">
+    <div class="container header-container">
+      <a class="logo-title" href="#top">Barbearia Inova</a>
+
+      <nav class="main-nav">
+        <a href="#sobre">Sobre</a>
+        <a href="#equipe">Equipe</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#localizacao">Localização</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle" class="header-btn" title="Mudar Tema" aria-label="Mudar Tema">
+          <i class="fas fa-moon"></i> </button>
+        
+        <button id="open-login-modal-btn" class="header-btn" title="Acesso Administrativo" aria-label="Acesso Administrativo">
+          <i class="fa-solid fa-user-shield"></i>
+        </button>
+      </div>
+
+      <button class="hamburger-menu" aria-label="hamburger-menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav">
+    <button class="close-menu-btn">&times;</button>
+    <a href="#sobre">Sobre</a>
+    <a href="#equipe">Equipe</a>
+    <a href="#depoimentos">Depoimentos</a>
+    <a href="#localizacao">Localização</a>
+  </div>
+
+  <a href="https://wa.me/5528999237495?text=Olá!%20Gostaria%20de%20mais%20informações." target="_blank" class="whatsapp-flutuante" title="Contato via WhatsApp" rel="noopener noreferrer" aria-label="whatsapp-flutuante">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <div id="notification"></div>
+
+  <section id="agendamento" class="hero">
+    <div class="background-image"></div>
+    <div class="hero-content">
+
+      <div class="container">
+        <div id="client-section">
+          <img src="assets/logo_inova_sem_fundo.png" alt="Logo da Empresa" class="logo">
+
+          <h1>Agendamento Rápido e Fácil</h1>
+          <p class="subtitle">Garanta seu horário com nossos especialistas em poucos cliques.</p>
+          <form id="agendamento-form">
+
+            <div class="form-grid">
+              <div class="form-group"><label for="nome">Seu Nome:</label><input type="text" id="nome" required
+                  placeholder="Digite seu nome completo"></div>
+              <div class="form-group">
+                  <label for="telefone">Seu WhatsApp:</label>
+                  <input 
+                      type="tel" 
+                      id="telefone" 
+                      required 
+                      placeholder="28999119911" 
+                      maxlength="11" 
+                      pattern="[0-9]{11}" 
+                      title="Digite apenas números (11 dígitos, ex: 28999119911)"
+                  >
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="servico-select">1. Escolha o Serviço:</label>
+                <select id="servico-select" required>
+                  <option value="">Carregando serviços...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="profissional-select">2. Escolha o Profissional:</label>
+                <select id="profissional-select" required disabled>
+                  <option value="">Escolha um serviço primeiro</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="data">3. Escolha a Data:</label>
+                <input type="text" id="data" required placeholder="Selecione uma data">
+              </div>
+
+              <div class="form-group">
+                <label for="hora">4. Escolha o Horário:</label>
+                <select id="hora" required>
+                  <option value="">Preencha os campos acima</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit">Agendar Horário</button>
+          </form>
+
+          <div id="whatsapp-confirmation" class="whatsapp-container"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="sobre" class="content-section">
+      <div class="container">
+        <h2 class="section-title">Sobre Nós</h2>
+        <div class="about-card animated-card">
+          <img src="assets/estabelecimento.jpg" alt="Foto do Estabelecimento" class="about-card-img">
+          <div class="about-card-content">
+            <h3>O Melhor Lugar Para Cuidar de Você</h3>
+            <p>Em nosso salão, cada detalhe é pensado para oferecer muito mais do que um simples corte de cabelo ou
+              barba. Aqui, você encontra um espaço acolhedor, moderno e descontraído, onde tradição e estilo se
+              encontram. Nossa missão é proporcionar uma experiência única de cuidado e bem-estar, para que você se
+              sinta confiante e renovado em cada visita.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipe" class="content-section">
+      <div class="container">
+        <h2 class="section-title">Nossa Equipe</h2>
+        <div class="team-grid">
+          <div class="team-card animated-card">
+            <img src="assets/equipe_masculino.png" alt="Foto do Profissional 1" class="team-img">
+            <h4 class="team-name">Profissional Masculino</h4>
+            <p class="team-bio">Com técnica, precisão e experiência, ele oferece cortes de cabelo e barba personalizados
+              para cada cliente, unindo tradição e modernidade. Aqui, cada detalhe é pensado para que você saia com
+              confiança renovada. Nosso barbeiro é fera quando o assunto é estilo masculino. Do clássico ao moderno, ele
+              garante aquele corte perfeito e uma barba impecável, para você sair renovado e cheio de confiança.</p>
+          </div>
+
+          <div class="team-card animated-card">
+            <img src="assets/equipe_feminina.png" alt="Foto do Profissional 2" class="team-img">
+            <h4 class="team-name">Profissional Feminino</h4>
+            <p class="team-bio">Com delicadeza e atenção aos detalhes, nossa especialista em cabelos femininos
+              transforma cada atendimento em um momento de autoestima e cuidado. Sempre atualizada com as últimas
+              tendências, ela está pronta para realçar sua beleza com cortes modernos, colorações e tratamentos que
+              valorizam seu estilo único. Se você procura um visual moderno e cheio de estilo, está no lugar certo!
+              Nossa especialista em cabelos femininos entende que cada mulher tem sua própria beleza e personalidade.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="depoimentos" class="content-section">
+      <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
+      <div class="testimonial-slider">
+
+        <div class="testimonial-slide">
+          <img src="assets/depoimento_1.png" alt="Foto do Cliente 1" class="testimonial-img">
+          <p class="testimonial-text">"Serviço incrível, ambiente fantástico e profissionais de primeira.
+            Recomendo 100%!"</p>
+          <span class="testimonial-author">- Nome do Cliente 1</span>
+        </div>
+
+        <div class="testimonial-slide">
+          <img src="assets/depoimento_2.png" alt="Foto do Cliente 2" class="testimonial-img">
+          <p class="testimonial-text">"Finalmente encontrei um lugar que entende o que eu quero. O agendamento
+            online facilitou tudo!"</p>
+          <span class="testimonial-author">- Nome do Cliente 2</span>
+        </div>
+
+        <div class="testimonial-slide">
+          <img src="assets//depoimento_3.png" alt="Foto do Cliente 3" class="testimonial-img">
+          <p class="testimonial-text">"Qualidade e atenção aos detalhes. Virou meu lugar preferido."</p>
+          <span class="testimonial-author">- Nome do Cliente 3</span>
+        </div>
+
+        <div class="slider-dots"></div>
+      </div>
+    </section>
+
+    <section id="localizacao" class="content-section">
+      <div class="container">
+        <h2 class="section-title">Onde Nos Encontrar</h2>
+        <div class="location-content">
+          <div class="location-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9957.93525480466!2d-41.39875000761525!3d-20.790833108554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xbbe71a9ae97e97%3A0xaa930955d289a3c3!2sJer%C3%B4nimo%20Monteiro%2C%20ES%2C%2029550-000!5e0!3m2!1spt-BR!2sbr!4v1759579624899!5m2!1spt-BR!2sbr"
+              class="map-iframe" allowfullscreen="" loading="lazy" title="Mapa de localização da empresa">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+
+      <div class="footer-grid">
+        <div class="footer-about">
+          <h4 class="footer-title">Nome da Empresa</h4>
+          <p>Sua satisfação é a nossa prioridade. Qualidade e confiança desde 2000.</p>
+        </div>
+
+        <div class="footer-contact">
+          <h4 class="footer-title">Contato</h4>
+          <p><i class="fas fa-map-marker-alt"></i> Rua: José de Carvalho, 34, Jerônimo Monteiro - ES</p>
+          <p><i class="fas fa-phone"></i> (28)99923-7495</p>
+          <p><i class="fas fa-envelope"></i> uedson.oliveira@gmail.com</p>
+        </div>
+
+        <div class="footer-social">
+          <h4 class="footer-title">Siga-nos</h4>
+          <a href="https://www.instagram.com/uedson.tuta/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/uedson.oliveira.12" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.linkedin.com/in/uedson-oliveira/" target="_blank" rel="noopener noreferrer" aria-label="Linkedin"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/uedsonoliveira" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Inova - Desenvolvimento Web &copy; <span id="current-year"></span> Uedson de Oliveira. Todos os direitos
+          reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <div id="login-modal-overlay" class="modal-overlay"></div>
+  <div id="login-modal" class="modal">
+    <button id="close-login-modal-btn" class="modal-close-btn">&times;</button>
+    <div id="admin-login-section">
+      <h2>Acesso Administrativo</h2>
+      <form id="login-form" class="form-modal">
+        <label for="usuario">Usuário:</label>
+        <input type="text" id="usuario" name="usuario" value="admin">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" value="1234">
+        <button type="submit" class="modal-enter-btn">Entrar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

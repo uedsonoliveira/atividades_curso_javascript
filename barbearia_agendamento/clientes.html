@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Clientes - Painel Administrativo</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="painel.css">
+</head>
+
+<body>
+  <div id="notification-container"></div>
+  <div class="admin-wrapper">
+    <nav class="side-nav">
+      <div class="nav-header">
+        <div class="logo-container"><i class="fas fa-cut"></i></div>
+        <span class="logo-text">Admin Agenda</span>
+        <button class="nav-toggle-btn"><i class="fas fa-chevron-left"></i></button>
+      </div>
+      <ul class="nav-links">
+        <li><a href="painel.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+        <li><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i><span>Agendamentos</span></a></li>
+        <li><a href="clientes.html" class="active"><i class="fas fa-id-card"></i><span>Clientes</span></a></li>
+        <li><a href="bloqueios.html"><i class="fas fa-lock"></i><span>Bloqueios</span></a></li>
+        <li><a href="equipe.html"><i class="fas fa-users"></i><span>Equipe</span></a></li>
+        <li><a href="servicos.html"><i class="fas fa-cogs"></i><span>Serviços</span></a></li>
+        <li><a href="configuracao.html"><i class="fas fa-clock"></i><span>Horários</span></a></li>
+        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Sair</span></a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <h1>Gerenciar Clientes</h1>
+        <div class="header-actions">
+          <button id="theme-toggle" class="header-btn" title="Mudar Tema" aria-label="Mudar Tema"><i class="fas fa-moon"></i> 
+          </button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="form-container">
+          <h3>Cadastrar Novo Cliente</h3>
+          <form id="cliente-form" class="panel-form">
+            <div class="form-row">
+              <label for="cliente-nome">Nome Completo</label>
+              <input type="text" id="cliente-nome" required placeholder="Ex: Carlos Silva">
+            </div>
+            <div class="form-row">
+              <label for="cliente-telefone">Telefone / WhatsApp</label>
+              <input type="tel" id="cliente-telefone" required placeholder="Ex: 28999999999">
+            </div>
+            <button type="submit">Salvar Cliente</button>
+          </form>
+        </div>
+
+        <div class="table-container">
+          <h3>Carteira de Clientes</h3>
+          <table id="clientes-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="clientes-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="clientes.js"></script>
+</body>
+
+</html>

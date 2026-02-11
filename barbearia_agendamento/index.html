@@ -26,8 +26,9 @@
       <div class="header-actions">
         <button id="theme-toggle" class="header-btn" title="Mudar Tema" aria-label="Mudar Tema">
           <i class="fas fa-moon"></i> </button>
-        
-        <button id="open-login-modal-btn" class="header-btn" title="Acesso Administrativo" aria-label="Acesso Administrativo">
+
+        <button id="open-login-modal-btn" class="header-btn" title="Acesso Administrativo"
+          aria-label="Acesso Administrativo">
           <i class="fa-solid fa-user-shield"></i>
         </button>
       </div>
@@ -46,9 +47,8 @@
     <a href="#localizacao">Localização</a>
   </div>
 
-  <a href="https://wa.me/5528999237495?text=Olá!%20Gostaria%20de%20mais%20informações." target="_blank" class="whatsapp-flutuante" title="Contato via WhatsApp" rel="noopener noreferrer" aria-label="whatsapp-flutuante">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+  <a href="#" class="whatsapp-float" target="_blank" id="btn-whatsapp-float">...</a>
+
   <div id="notification"></div>
 
   <section id="agendamento" class="hero">
@@ -67,16 +67,8 @@
               <div class="form-group"><label for="nome">Seu Nome:</label><input type="text" id="nome" required
                   placeholder="Digite seu nome completo"></div>
               <div class="form-group">
-                  <label for="telefone">Seu WhatsApp:</label>
-                  <input 
-                      type="tel" 
-                      id="telefone" 
-                      required 
-                      placeholder="28999119911" 
-                      maxlength="11" 
-                      pattern="[0-9]{11}" 
-                      title="Digite apenas números (11 dígitos, ex: 28999119911)"
-                  >
+                <label for="telefone">Seu WhatsApp:</label>
+                <input type="tel" id="telefone" required placeholder="(DDD) 99999-9999" maxlength="15">
               </div>
             </div>
 
@@ -101,12 +93,12 @@
                 <input type="text" id="data" required placeholder="Selecione uma data">
               </div>
 
-              <div class="form-group">
-                <label for="hora">4. Escolha o Horário:</label>
-                <select id="hora" required>
-                  <option value="">Preencha os campos acima</option>
-                </select>
-              </div>
+              <div class="form-group" id="container-horarios">
+                <label>4. Escolha um Horário</label>
+                <p id="msg-horario" class="time-message">Preencha Data e Profissional para ver os horários.</p>
+                <div id="horarios-grid" class="time-grid"></div>
+                <input type="hidden" id="hora-selecionada" name="hora" required>
+              </div>              
             </div>
 
             <button type="submit">Agendar Horário</button>
@@ -123,7 +115,7 @@
       <div class="container">
         <h2 class="section-title">Sobre Nós</h2>
         <div class="about-card animated-card">
-          <img src="assets/estabelecimento.jpg" alt="Foto do Estabelecimento" class="about-card-img">
+          <img src="..." alt="Sobre Nós" class="about-img" id="img-sobre">          
           <div class="about-card-content">
             <h3>O Melhor Lugar Para Cuidar de Você</h3>
             <p>Em nosso salão, cada detalhe é pensado para oferecer muito mais do que um simples corte de cabelo ou
@@ -140,7 +132,7 @@
         <h2 class="section-title">Nossa Equipe</h2>
         <div class="team-grid">
           <div class="team-card animated-card">
-            <img src="assets/equipe_masculino.png" alt="Foto do Profissional 1" class="team-img">
+            <img src="..." alt="Nossa Equipe" class="team-img" id="img-equipe">
             <h4 class="team-name">Profissional Masculino</h4>
             <p class="team-bio">Com técnica, precisão e experiência, ele oferece cortes de cabelo e barba personalizados
               para cada cliente, unindo tradição e modernidade. Aqui, cada detalhe é pensado para que você saia com
@@ -149,7 +141,7 @@
           </div>
 
           <div class="team-card animated-card">
-            <img src="assets/equipe_feminina.png" alt="Foto do Profissional 2" class="team-img">
+            <img src="..." alt="Nossa Equipe" class="team-img" id="img-equipe">
             <h4 class="team-name">Profissional Feminino</h4>
             <p class="team-bio">Com delicadeza e atenção aos detalhes, nossa especialista em cabelos femininos
               transforma cada atendimento em um momento de autoestima e cuidado. Sempre atualizada com as últimas
@@ -195,10 +187,7 @@
         <h2 class="section-title">Onde Nos Encontrar</h2>
         <div class="location-content">
           <div class="location-map">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9957.93525480466!2d-41.39875000761525!3d-20.790833108554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xbbe71a9ae97e97%3A0xaa930955d289a3c3!2sJer%C3%B4nimo%20Monteiro%2C%20ES%2C%2029550-000!5e0!3m2!1spt-BR!2sbr!4v1759579624899!5m2!1spt-BR!2sbr"
-              class="map-iframe" allowfullscreen="" loading="lazy" title="Mapa de localização da empresa">
-            </iframe>
+            <iframe id="iframe-mapa" src="..." ... ></iframe>
           </div>
         </div>
       </div>
@@ -216,17 +205,21 @@
 
         <div class="footer-contact">
           <h4 class="footer-title">Contato</h4>
-          <p><i class="fas fa-map-marker-alt"></i> Rua: José de Carvalho, 34, Jerônimo Monteiro - ES</p>
-          <p><i class="fas fa-phone"></i> (28)99923-7495</p>
+          <p><i class="fas fa-map-marker-alt"></i> <span id="texto-endereco">Endereço Carregando...</span></p>
+          <p><i class="fas fa-phone"></i> <span id="texto-telefone">Telefone Carregando...</span></p>
           <p><i class="fas fa-envelope"></i> uedson.oliveira@gmail.com</p>
         </div>
 
         <div class="footer-social">
           <h4 class="footer-title">Siga-nos</h4>
-          <a href="https://www.instagram.com/uedson.tuta/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.facebook.com/uedson.oliveira.12" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.linkedin.com/in/uedson-oliveira/" target="_blank" rel="noopener noreferrer" aria-label="Linkedin"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/uedsonoliveira" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.instagram.com/uedson.tuta/" target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/uedson.oliveira.12" target="_blank" rel="noopener noreferrer"
+            aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.linkedin.com/in/uedson-oliveira/" target="_blank" rel="noopener noreferrer"
+            aria-label="Linkedin"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/uedsonoliveira" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i
+              class="fab fa-github"></i></a>
         </div>
       </div>
 

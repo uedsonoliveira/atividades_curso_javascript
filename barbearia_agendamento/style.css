@@ -371,6 +371,10 @@ body {
 }
 /* --- SEÇÃO HERO E AGENDAMENTO --- */
 .hero {
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding-top: 80px;
   position: relative;
   min-height: 100vh;
@@ -382,16 +386,7 @@ body {
   color: #fff;
 }
 
-.background-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('assets/imagem-fundo.jpg') no-repeat center center/cover;
-  filter: brightness(0.5);
-  z-index: -1;
-}
+
 .hero-content{
   padding-top: 50px;
 }
@@ -900,6 +895,51 @@ body.dark-mode .time-btn.selected {
 .whatsapp-button:hover {
   background-color: #128C7E;
   transform: translateY(-2px) scale(1.05);
+}
+
+/* --- MAPA RESPONSIVO (Item 2e) --- */
+.map-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Proporção 16:9 (Aspect Ratio) */
+    height: 0;
+    overflow: hidden;
+    border-radius: 15px; /* Bordas arredondadas bonitas */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Estilo para o iframe direto (caso não tenha div em volta) */
+#iframe-mapa {
+    width: 100%;
+    height: 400px; /* Altura fixa boa para desktop e mobile */
+    border: 0;
+    border-radius: 10px;
+    display: block; /* Remove espaços extras em baixo */
+}
+
+/* --- CORREÇÃO: FORÇAR IMAGENS A APARECEREM --- */
+.animated-card, 
+.about-card, 
+.about-img, 
+.team-img {
+    opacity: 1 !important;        /* Força total visibilidade */
+    visibility: visible !important; /* Garante que não está oculto */
+    transform: none !important;    /* Remove deslocamentos que podem jogar a imagem para fora */
+    display: block !important;     /* Garante que ocupa espaço */
+}
+
+/* Garante tamanho para a imagem não colapsar */
+#img-sobre, #img-equipe {
+    width: 100%;
+    min-height: 300px;            /* Altura mínima para não sumir */
+    object-fit: cover;
+    background-color: #f0f0f0;    /* Fundo cinza caso a imagem demore a carregar */
+}
+
+@media (max-width: 768px) {
+    #iframe-mapa {
+        height: 300px; /* Um pouco menor no celular */
+    }
 }
 
 

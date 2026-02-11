@@ -14,7 +14,7 @@
 
   <header class="main-header">
     <div class="container header-container">
-      <a class="logo-title" href="#top">Barbearia Inova</a>
+      <a class="logo-title" href="#top">...</a>
 
       <nav class="main-nav">
         <a href="#sobre">Sobre</a>
@@ -47,19 +47,21 @@
     <a href="#localizacao">Localização</a>
   </div>
 
-  <a href="#" class="whatsapp-float" target="_blank" id="btn-whatsapp-float">...</a>
+  <a href="#" class="whatsapp-float" target="_blank" id="btn-whatsapp-float">
+    <i class="fab fa-whatsapp my-float"></i>
+  </a>
 
   <div id="notification"></div>
 
   <section id="agendamento" class="hero">
-    <div class="background-image"></div>
+    <div class="hero" id="hero-section"></div>
     <div class="hero-content">
 
       <div class="container">
         <div id="client-section">
-          <img src="assets/logo_inova_sem_fundo.png" alt="Logo da Empresa" class="logo">
+          <img src="https://www.flaticon.com/free-icon/barbershop_856572?term=barber+shop&page=1&position=18&origin=search&related_id=856572#:~:text=Edit%20icon-,Flaticons.com%20Flat,-Barbershop%20free%20icon" alt="Logo da Empresa" class="logo">
 
-          <h1>Agendamento Rápido e Fácil</h1>
+          <h1>...</h1>
           <p class="subtitle">Garanta seu horário com nossos especialistas em poucos cliques.</p>
           <form id="agendamento-form">
 
@@ -98,7 +100,7 @@
                 <p id="msg-horario" class="time-message">Preencha Data e Profissional para ver os horários.</p>
                 <div id="horarios-grid" class="time-grid"></div>
                 <input type="hidden" id="hora-selecionada" name="hora" required>
-              </div>              
+              </div>
             </div>
 
             <button type="submit">Agendar Horário</button>
@@ -115,7 +117,7 @@
       <div class="container">
         <h2 class="section-title">Sobre Nós</h2>
         <div class="about-card animated-card">
-          <img src="..." alt="Sobre Nós" class="about-img" id="img-sobre">          
+          <img src="..." alt="Sobre Nós" class="about-img" id="img-sobre">
           <div class="about-card-content">
             <h3>O Melhor Lugar Para Cuidar de Você</h3>
             <p>Em nosso salão, cada detalhe é pensado para oferecer muito mais do que um simples corte de cabelo ou
@@ -133,53 +135,51 @@
         <div class="team-grid">
           <div class="team-card animated-card">
             <img src="..." alt="Nossa Equipe" class="team-img" id="img-equipe">
-            <h4 class="team-name">Profissional Masculino</h4>
-            <p class="team-bio">Com técnica, precisão e experiência, ele oferece cortes de cabelo e barba personalizados
-              para cada cliente, unindo tradição e modernidade. Aqui, cada detalhe é pensado para que você saia com
-              confiança renovada. Nosso barbeiro é fera quando o assunto é estilo masculino. Do clássico ao moderno, ele
-              garante aquele corte perfeito e uma barba impecável, para você sair renovado e cheio de confiança.</p>
-          </div>
-
-          <div class="team-card animated-card">
-            <img src="..." alt="Nossa Equipe" class="team-img" id="img-equipe">
-            <h4 class="team-name">Profissional Feminino</h4>
-            <p class="team-bio">Com delicadeza e atenção aos detalhes, nossa especialista em cabelos femininos
-              transforma cada atendimento em um momento de autoestima e cuidado. Sempre atualizada com as últimas
-              tendências, ela está pronta para realçar sua beleza com cortes modernos, colorações e tratamentos que
-              valorizam seu estilo único. Se você procura um visual moderno e cheio de estilo, está no lugar certo!
-              Nossa especialista em cabelos femininos entende que cada mulher tem sua própria beleza e personalidade.
-            </p>
+            <h4 class="team-name">
+            <p class="testimonial-text">Qualidade e atenção aos detalhes</h4>
+            <p class="team-bio">Com técnica, precisão e experiência, Nossa equipe oferece cortes de cabelo e barba personalizados para cada cliente, unindo tradição e modernidade. Aqui, cada detalhe é pensado para que você saia com confiança renovada. Nosso barbeiro é fera quando o assunto é estilo masculino. Do clássico ao moderno, ele garante aquele corte perfeito e uma barba impecável, para você sair renovado e cheio de confiança.</p>
           </div>
         </div>
       </div>
     </section>
-
     <section id="depoimentos" class="content-section">
-      <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
-      <div class="testimonial-slider">
+      <div class="container">
+        <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
 
-        <div class="testimonial-slide">
-          <img src="assets/depoimento_1.png" alt="Foto do Cliente 1" class="testimonial-img">
-          <p class="testimonial-text">"Serviço incrível, ambiente fantástico e profissionais de primeira.
-            Recomendo 100%!"</p>
-          <span class="testimonial-author">- Nome do Cliente 1</span>
+        <div class="testimonial-slider">
+
+          <div class="testimonial-slide active">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente 1" class="testimonial-img"
+              id="img-depoimento-1">
+            <p class="testimonial-text">"Serviço incrível, ambiente fantástico e profissionais de primeira. Recomendo
+              100%!"</p>
+            <span class="testimonial-author">- João Silva</span>
+          </div>
+
+          <div class="testimonial-slide">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Cliente 2" class="testimonial-img"
+              id="img-depoimento-2">
+            <p class="testimonial-text">"Finalmente encontrei um lugar que entende o que eu quero. O agendamento online
+              facilitou tudo!"</p>
+            <span class="testimonial-author">- Pedro Santos</span>
+          </div>
+
+          <div class="testimonial-slide">
+            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Cliente 3" class="testimonial-img"
+              id="img-depoimento-3">
+            <p class="testimonial-text">"Qualidade e atenção aos detalhes. Virou meu lugar preferido."</p>
+            <span class="testimonial-author">- Lucas Oliveira</span>
+          </div>
+
+          <div class="slider-dots">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+          </div>
+
         </div>
-
-        <div class="testimonial-slide">
-          <img src="assets/depoimento_2.png" alt="Foto do Cliente 2" class="testimonial-img">
-          <p class="testimonial-text">"Finalmente encontrei um lugar que entende o que eu quero. O agendamento
-            online facilitou tudo!"</p>
-          <span class="testimonial-author">- Nome do Cliente 2</span>
-        </div>
-
-        <div class="testimonial-slide">
-          <img src="assets//depoimento_3.png" alt="Foto do Cliente 3" class="testimonial-img">
-          <p class="testimonial-text">"Qualidade e atenção aos detalhes. Virou meu lugar preferido."</p>
-          <span class="testimonial-author">- Nome do Cliente 3</span>
-        </div>
-
-        <div class="slider-dots"></div>
       </div>
+    </section>
     </section>
 
     <section id="localizacao" class="content-section">
@@ -187,7 +187,7 @@
         <h2 class="section-title">Onde Nos Encontrar</h2>
         <div class="location-content">
           <div class="location-map">
-            <iframe id="iframe-mapa" src="..." ... ></iframe>
+            <iframe id="iframe-mapa" src="..." allowfullscreen="" loading="lazy"></iframe>
           </div>
         </div>
       </div>

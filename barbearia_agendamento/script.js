@@ -50,67 +50,85 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Variável global para guardar o telefone da barbearia (usado na notificação)
-let telefoneBarbearia = ''; 
+let telefoneBarbearia = '';
 
 async function carregarDadosBarbearia(slug) {
-    try {
-        const { data, error } = await supabaseClient
-            .from('barbearias')
-            .select('*')
-            .eq('slug', slug)
-            .single();
+  try {
+    // Seleciona TODAS as colunas (*)
+    const { data, error } = await supabaseClient
+      .from('barbearias')
+      .select('*')
+      .eq('slug', slug)
+      .single();
 
-        if (error) throw error;
+    if (error) throw error;
 
-        if (data) {
-            currentBarbeariaId = data.id;
-            telefoneBarbearia = data.telefone || ''; // Guarda para usar no agendamento
+    if (data) {
+      currentBarbeariaId = data.id;
+      telefoneBarbearia = data.telefone || '';
 
-            // 1. Cores e Textos Básicos
-            document.documentElement.style.setProperty('--primary-color', data.cor_primaria);
-            const titulos = document.querySelectorAll('.logo-title, .footer-title'); 
-            titulos.forEach(el => el.textContent = data.nome);
-            
-            const h1Hero = document.querySelector('.hero-content h1');
-            if(h1Hero) h1Hero.textContent = `Bem-vindo à ${data.nome}`;
+      // --- 1. CORES E TEXTOS ---
+      document.documentElement.style.setProperty('--primary-color', data.cor_primaria);
 
-            // 2. Imagens Dinâmicas (Item 2d)
-            if (data.logo_url) document.querySelectorAll('.logo').forEach(img => img.src = data.logo_url);
-            
-            const imgSobre = document.getElementById('img-sobre');
-            if (imgSobre && data.foto_sobre_url) imgSobre.src = data.foto_sobre_url;
+      // Atualiza Títulos
+      document.querySelectorAll('.logo-title, .footer-title').forEach(el => el.textContent = data.nome);
+      const h1Hero = document.querySelector('.hero-content h1');
+      if (h1Hero) h1Hero.textContent = `Bem-vindo à ${data.nome}`;
 
-            const imgEquipe = document.getElementById('img-equipe');
-            if (imgEquipe && data.foto_equipe_url) imgEquipe.src = data.foto_equipe_url;
+      // --- 2. IMAGEM DE FUNDO (HERO) DINÂMICA ---
+      // Importante: Mantemos o linear-gradient para o texto ficar legível sobre a foto
+      const heroSection = document.getElementById('hero-section');
+      if (heroSection && data.fundo_hero_url) {
+        heroSection.style.backgroundImage =
+          `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${data.fundo_hero_url}')`;
+      }
 
-            // 3. Mapa Dinâmico (Item 2e)
-            const iframeMapa = document.getElementById('iframe-mapa');
-            if (iframeMapa && data.iframe_mapa) iframeMapa.src = data.iframe_mapa;
+      // --- 3. LOGO DINÂMICA ---
+      if (data.logo_url) {
+        document.querySelectorAll('.logo').forEach(img => {
+          img.src = data.logo_url;
+          // Caso a logo quebre, esconde ou põe um placeholder
+          img.onerror = () => img.style.display = 'none';
+        });
+      }
 
-            // 4. Rodapé e Contatos (Item 2f)
-            const txtEnd = document.getElementById('texto-endereco');
-            if (txtEnd && data.endereco) txtEnd.textContent = data.endereco;
+      // --- 4. IMAGENS "SOBRE" E "EQUIPE" ---
+      const imgSobre = document.getElementById('img-sobre');
+      if (imgSobre && data.foto_sobre_url) imgSobre.src = data.foto_sobre_url;
 
-            const txtTel = document.getElementById('texto-telefone');
-            if (txtTel && data.telefone) {
-                // Formata visualmente: 5511999999999 -> (11) 99999-9999
-                const telF = data.telefone.replace('55', ''); 
-                const telFormatado = `(${telF.slice(0,2)}) ${telF.slice(2,7)}-${telF.slice(7)}`;
-                txtTel.textContent = telFormatado;
-            }
+      const imgEquipe = document.getElementById('img-equipe');
+      if (imgEquipe && data.foto_equipe_url) imgEquipe.src = data.foto_equipe_url;
 
-            // 5. Botão Flutuante WhatsApp (Item 2b Dinâmico)
-            const btnFloat = document.getElementById('btn-whatsapp-float');
-            if (btnFloat && data.telefone) {
-                btnFloat.href = `https://wa.me/${data.telefone}?text=Olá, gostaria de saber mais informações.`;
-            }
+      // --- 5. DEPOIMENTOS DINÂMICOS ---
+      if (data.foto_depoimento_1) document.getElementById('img-depoimento-1').src = data.foto_depoimento_1;
+      if (data.foto_depoimento_2) document.getElementById('img-depoimento-2').src = data.foto_depoimento_2;
+      if (data.foto_depoimento_3) document.getElementById('img-depoimento-3').src = data.foto_depoimento_3;
 
-            carregarServicos(data.id);
-        }
-    } catch (error) {
-        console.error("Erro ao carregar barbearia:", error.message);
-        mostrarNotificacao("Erro ao carregar dados da barbearia.", "error");
+      // --- 6. MAPA E CONTATOS ---
+      const iframeMapa = document.getElementById('iframe-mapa');
+      if (iframeMapa && data.iframe_mapa) iframeMapa.src = data.iframe_mapa;
+
+      const txtEnd = document.getElementById('texto-endereco');
+      if (txtEnd && data.endereco) txtEnd.textContent = data.endereco;
+
+      // Formatação do Telefone
+      const txtTel = document.getElementById('texto-telefone');
+      if (txtTel && data.telefone) {
+        const telF = data.telefone.replace('55', '');
+        const telFormatado = `(${telF.slice(0, 2)}) ${telF.slice(2, 7)}-${telF.slice(7)}`;
+        txtTel.textContent = telFormatado;
+      }
+
+      const btnFloat = document.getElementById('btn-whatsapp-float');
+      if (btnFloat && data.telefone) {
+        btnFloat.href = `https://wa.me/${data.telefone}?text=Olá, vim pelo site!`;
+      }
+
+      carregarServicos(data.id);
     }
+  } catch (error) {
+    console.error("Erro ao carregar barbearia:", error.message);
+  }
 }
 
 // --- NOVA FUNÇÃO: Busca Tabela de Horários ---
@@ -198,7 +216,6 @@ async function carregarProfissionais(servicoId) {
 
 // --- LÓGICA INTELIGENTE DE HORÁRIOS ---
 
-// --- LÓGICA PRINCIPAL ALTERADA ---
 // --- NOVA LÓGICA DE GRADE DE HORÁRIOS (Item 2g) ---
 
 async function carregarHorariosDisponiveis() {
@@ -356,112 +373,124 @@ function verificarConflito(slotTime, ocupados) {
 
 // --- ENVIO DO AGENDAMENTO ---
 document.getElementById('agendamento-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btnSubmit = e.target.querySelector('button[type="submit"]');
-    const textoOriginal = btnSubmit.textContent;
-    btnSubmit.textContent = "Processando...";
-    btnSubmit.disabled = true;
+  e.preventDefault();
+  const btnSubmit = e.target.querySelector('button[type="submit"]');
+  const textoOriginal = btnSubmit.textContent;
+  btnSubmit.textContent = "Processando...";
+  btnSubmit.disabled = true;
 
-    // 1. Captura dos Dados
-    const nome = document.getElementById('nome').value;
-    const telefone = document.getElementById('telefone').value;
-    
-    // IMPORTANTE: Remove tudo que não for número para salvar no banco
-    const telefoneLimpo = telefone.replace(/\D/g, ''); 
+  // 1. Captura dos Dados
+  const nome = document.getElementById('nome').value;
+  const telefone = document.getElementById('telefone').value;
 
-    const servicoId = document.getElementById('servico-select').value;
-    const profissionalId = document.getElementById('profissional-select').value;
-    const dataAgendamento = document.getElementById('data').value;
-    
-    // Captura o valor do INPUT HIDDEN (onde a Grade salva o horário)
-    const horaAgendamento = document.getElementById('hora-selecionada').value;
+  // IMPORTANTE: Remove tudo que não for número para salvar no banco
+  const telefoneLimpo = telefone.replace(/\D/g, '');
 
-    // 2. Validação Extra
-    if (!horaAgendamento) {
-        mostrarNotificacao("Por favor, selecione um horário na grade.", "error");
-        btnSubmit.disabled = false;
-        btnSubmit.textContent = textoOriginal;
-        return;
+  const servicoId = document.getElementById('servico-select').value;
+  const profissionalId = document.getElementById('profissional-select').value;
+  const dataAgendamento = document.getElementById('data').value;
+
+  // Captura o valor do INPUT HIDDEN (onde a Grade salva o horário)
+  const horaAgendamento = document.getElementById('hora-selecionada').value;
+
+  // 2. Validação Extra
+  if (!horaAgendamento) {
+    mostrarNotificacao("Por favor, selecione um horário na grade.", "error");
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = textoOriginal;
+    return;
+  }
+
+  const selectServico = document.getElementById('servico-select');
+  const duracao = selectServico.options[selectServico.selectedIndex].dataset.duracao || 30;
+
+  const novoAgendamento = {
+    barbearia_id: currentBarbeariaId,
+    nome_cliente_temp: nome,
+    telefone_cliente_temp: telefoneLimpo, // Salva APENAS números no banco (ex: 11999999999)
+    servico_id: servicoId,
+    profissional_id: profissionalId,
+    data_agendamento: dataAgendamento,
+    hora_agendamento: horaAgendamento,
+    duracao_minutos: duracao,
+    status: 'pendente'
+  };
+
+  try {
+    // --- TENTATIVA DE CADASTRO AUTOMÁTICO DO CLIENTE ---
+    const { data: clienteExistente } = await supabaseClient
+      .from('clientes')
+      .select('id')
+      .eq('barbearia_id', currentBarbeariaId)
+      .eq('telefone', telefoneLimpo)
+      .maybeSingle();
+
+    if (!clienteExistente) {
+      await supabaseClient.from('clientes').insert([{
+        nome: nome,
+        telefone: telefoneLimpo,
+        barbearia_id: currentBarbeariaId
+      }]);
     }
 
-    const selectServico = document.getElementById('servico-select');
-    const duracao = selectServico.options[selectServico.selectedIndex].dataset.duracao || 30;
+    // --- SALVAR AGENDAMENTO ---
+    const { error } = await supabaseClient.from('agendamentos').insert([novoAgendamento]);
 
-    const novoAgendamento = {
-        barbearia_id: currentBarbeariaId,
-        nome_cliente_temp: nome,
-        telefone_cliente_temp: telefoneLimpo, // Salva APENAS números no banco (ex: 11999999999)
-        servico_id: servicoId,
-        profissional_id: profissionalId,
-        data_agendamento: dataAgendamento,
-        hora_agendamento: horaAgendamento,
-        duracao_minutos: duracao,
-        status: 'pendente'
-    };
+    if (error) throw error;
 
-    try {
-        // --- TENTATIVA DE CADASTRO AUTOMÁTICO DO CLIENTE ---
-        const { data: clienteExistente } = await supabaseClient
-            .from('clientes')
-            .select('id')
-            .eq('barbearia_id', currentBarbeariaId)
-            .eq('telefone', telefoneLimpo)
-            .maybeSingle();
+    // Sucesso!
+    mostrarNotificacao("Agendamento realizado com sucesso!", "success");
+    // Lógica de Notificação WhatsApp (Item 2c)
+    if (telefoneBarbearia) {
+      // Monta a mensagem
+      const msg = `Olá! Acabei de agendar pelo site:%0A` +
+        `*Nome:* ${nome}%0A` +
+        `*Data:* ${dataAgendamento.split('-').reverse().join('/')}%0A` +
+        `*Horário:* ${horaAgendamento.slice(0, 5)}%0A` +
+        `*Serviço:* (ID ${servicoId})%0A` + // O ideal seria pegar o nome do serviço, mas ID serve por enquanto
+        `Aguardo confirmação!`;
 
-        if (!clienteExistente) {
-            await supabaseClient.from('clientes').insert([{
-                nome: nome,
-                telefone: telefoneLimpo,
-                barbearia_id: currentBarbeariaId
-            }]);
-        }
-
-        // --- SALVAR AGENDAMENTO ---
-        const { error } = await supabaseClient.from('agendamentos').insert([novoAgendamento]);
-        
-        if (error) throw error;
-        
-        // Sucesso!
-        mostrarNotificacao("Agendamento realizado com sucesso!", "success");
-        // Lógica de Notificação WhatsApp (Item 2c)
-        if (telefoneBarbearia) {
-            // Monta a mensagem
-            const msg = `Olá! Acabei de agendar pelo site:%0A` +
-                        `*Nome:* ${nome}%0A` +
-                        `*Data:* ${dataAgendamento.split('-').reverse().join('/')}%0A` +
-                        `*Horário:* ${horaAgendamento.slice(0,5)}%0A` +
-                        `*Serviço:* (ID ${servicoId})%0A` + // O ideal seria pegar o nome do serviço, mas ID serve por enquanto
-                        `Aguardo confirmação!`;
-            
-            // Opção A: Redirecionar direto (Pode ser intrusivo)
-            // window.open(`https://wa.me/${telefoneBarbearia}?text=${msg}`, '_blank');
-
-            // Opção B (Recomendada): Perguntar se quer enviar
-            if(confirm("Agendamento salvo! Deseja enviar o comprovante para o WhatsApp da barbearia agora?")) {
-                window.open(`https://wa.me/${telefoneBarbearia}?text=${msg}`, '_blank');
-            }
-        }
-        e.target.reset(); // Limpa inputs de texto
-        
-        // --- RESET VISUAL DA NOVA INTERFACE ---
-        // Reseta selects
-        document.getElementById('profissional-select').innerHTML = '<option value="">Escolha um serviço primeiro</option>';
-        document.getElementById('profissional-select').disabled = true;
-        
-        // Reseta a Grade de Horários
-        document.getElementById('horarios-grid').innerHTML = ''; 
-        document.getElementById('msg-horario').style.display = 'block';
-        document.getElementById('msg-horario').textContent = 'Preencha Data e Profissional para ver os horários.';
-        document.getElementById('hora-selecionada').value = ''; // Limpa o hidden
-
-    } catch (error) {
-        console.error("Erro ao agendar:", error);
-        mostrarNotificacao("Erro ao agendar. Tente novamente.", "error");
-    } finally {
-        btnSubmit.textContent = textoOriginal;
-        btnSubmit.disabled = false;
+      // Opção B (Recomendada): Perguntar se quer enviar
+      if (confirm("Agendamento salvo! Deseja enviar o comprovante para o WhatsApp da barbearia agora?")) {
+        window.open(`https://wa.me/${telefoneBarbearia}?text=${msg}`, '_blank');
+      }
     }
+    e.target.reset(); // Limpa inputs de texto
+
+    // --- RESET VISUAL DA NOVA INTERFACE ---
+    // Reseta selects
+    document.getElementById('profissional-select').innerHTML = '<option value="">Escolha um serviço primeiro</option>';
+    document.getElementById('profissional-select').disabled = true;
+
+    // Reseta a Grade de Horários
+    document.getElementById('horarios-grid').innerHTML = '';
+    document.getElementById('msg-horario').style.display = 'block';
+    document.getElementById('msg-horario').textContent = 'Preencha Data e Profissional para ver os horários.';
+    document.getElementById('hora-selecionada').value = ''; // Limpa o hidden
+
+  } catch (error) {
+    console.error("Erro ao agendar:", error);
+    mostrarNotificacao("Erro ao agendar. Tente novamente.", "error");
+  } finally {
+    btnSubmit.textContent = textoOriginal;
+    btnSubmit.disabled = false;
+  }
 });
+
+// Função para formatar telefone visualmente (11999999999 -> (11) 99999-9999)
+function formatarTelefoneDisplay(telefone) {
+    if (!telefone) return '-';
+    // Remove tudo que não é número (caso venha sujo do banco antigo)
+    const limpo = telefone.replace(/\D/g, '');
+    
+    // Aplica a máscara
+    if (limpo.length === 11) {
+        return `(${limpo.slice(0, 2)}) ${limpo.slice(2, 7)}-${limpo.slice(7)}`;
+    } else if (limpo.length === 10) {
+        return `(${limpo.slice(0, 2)}) ${limpo.slice(2, 6)}-${limpo.slice(6)}`;
+    }
+    return telefone; // Retorna original se não tiver tamanho padrão
+}
 
 // --- LOGIN ADMIN ---
 function configurarModalLogin() {
@@ -587,4 +616,51 @@ function configurarDarkMode() {
       }
     }
   }
+
+  /* --- LÓGICA DO SLIDER DE DEPOIMENTOS --- */
+  let slideIndex = 1;
+
+  // Inicializa o slider mostrando o primeiro
+  document.addEventListener('DOMContentLoaded', () => {
+    showSlides(slideIndex);
+  });
+
+  // Função chamada pelos botões (dots) no HTML onclick="currentSlide(n)"
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  // Função principal que troca os slides e as bolinhas
+  function showSlides(n) {
+    let i;
+    const slides = document.getElementsByClassName("testimonial-slide");
+    const dots = document.getElementsByClassName("dot");
+
+    if (slides.length === 0) return; // Proteção caso não tenha slides
+
+    // Loop infinito (se passar do último, volta pro 1)
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+
+    // 1. Esconde todos os slides (remove a classe active)
+    for (i = 0; i < slides.length; i++) {
+      slides[i].classList.remove("active");
+      // O CSS já trata o display:none quando não tem 'active'
+    }
+
+    // 2. Remove a classe "active" de todas as bolinhas
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+
+    // 3. Mostra o slide atual e ativa a bolinha correspondente
+    slides[slideIndex - 1].classList.add("active");
+    dots[slideIndex - 1].className += " active";
+  }
+
+  // Opcional: Auto-play (muda sozinho a cada 5 segundos)
+  setInterval(() => {
+    slideIndex++;
+    showSlides(slideIndex);
+  }, 5000);
 }

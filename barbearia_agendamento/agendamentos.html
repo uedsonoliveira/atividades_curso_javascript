@@ -21,7 +21,8 @@
       </div>
       <ul class="nav-links">
         <li><a href="painel.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-        <li><a href="agendamentos.html" class="active"><i class="fas fa-calendar-alt"></i><span>Agendamentos</span></a></li>
+        <li><a href="agendamentos.html" class="active"><i class="fas fa-calendar-alt"></i><span>Agendamentos</span></a>
+        </li>
         <li><a href="clientes.html"><i class="fas fa-id-card"></i><span>Clientes</span></a></li>
         <li><a href="bloqueios.html"><i class="fas fa-lock"></i><span>Bloqueios</span></a></li>
         <li><a href="equipe.html"><i class="fas fa-users"></i><span>Equipe</span></a></li>
@@ -35,7 +36,8 @@
       <header class="top-bar">
         <h1>Gerenciar Agendamentos</h1>
         <div class="header-actions">
-          <button id="theme-toggle" class="header-btn" title="Mudar Tema" aria-label="Mudar Tema"><i class="fas fa-moon"></i> 
+          <button id="theme-toggle" class="header-btn" title="Mudar Tema" aria-label="Mudar Tema"><i
+              class="fas fa-moon"></i>
           </button>
         </div>
       </header>
@@ -43,6 +45,31 @@
       <div class="content-body">
         <div class="table-container">
           <h3>Todos os Agendamentos</h3>
+          <div class="filters-container">
+            <div class="filter-group">
+              <label>Data:</label>
+              <input type="date" id="filtro-data" class="filter-input">
+            </div>
+
+            <div class="filter-group">
+              <label>Profissional:</label>
+              <select id="filtro-profissional" class="filter-input">
+                <option value="">Todos</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Serviço:</label>
+              <select id="filtro-servico" class="filter-input">
+                <option value="">Todos</option>
+              </select>
+            </div>
+
+            <div class="filter-actions">
+              <button onclick="aplicarFiltros()" class="btn-filter"><i class="fas fa-search"></i> Filtrar</button>
+              <button onclick="limparFiltros()" class="btn-clear"><i class="fas fa-sync-alt"></i> Limpar</button>
+            </div>
+          </div>
           <table id="agendamentos-table">
             <thead>
               <tr>
@@ -61,6 +88,57 @@
         </div>
       </div>
     </main>
+  </div>
+
+  <div id="modal-edicao" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Editar Agendamento</h3>
+        <button onclick="fecharModalEdicao()" class="btn-close">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="edit-id">
+
+        <div class="form-group">
+          <label>Status:</label>
+          <select id="edit-status" class="form-control">
+            <option value="pendente">Pendente 🟡</option>
+            <option value="confirmado">Confirmado 🔵</option>
+            <option value="concluido">Concluído ✅</option>
+            <option value="cancelado">Cancelado ❌</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data:</label>
+            <input type="date" id="edit-data" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Hora:</label>
+            <input type="time" id="edit-hora" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Profissional:</label>
+          <select id="edit-profissional" class="form-control">
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Serviço:</label>
+          <select id="edit-servico" class="form-control">
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button onclick="fecharModalEdicao()" class="btn-secondary">Cancelar</button>
+        <button onclick="salvarEdicao()" class="btn-primary">Salvar Alterações</button>
+      </div>
+    </div>
   </div>
 
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
